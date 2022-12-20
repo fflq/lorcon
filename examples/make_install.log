@@ -1,0 +1,39 @@
+➜  lorcon git:(master) ✗ sudo make install
+install -d -m 755 /usr/local/lib
+/bin/bash ./libtool --mode=install install -c liborcon2.la /usr/local/lib/liborcon2.la
+libtool: install: install -c .libs/liborcon2-2.0.0.so /usr/local/lib/liborcon2-2.0.0.so
+libtool: install: (cd /usr/local/lib && { ln -s -f liborcon2-2.0.0.so liborcon2.so || { rm -f liborcon2.so && ln -s liborcon2-2.0.0.so liborcon2.so; }; })
+libtool: install: install -c .libs/liborcon2.lai /usr/local/lib/liborcon2.la
+libtool: install: install -c .libs/liborcon2.a /usr/local/lib/liborcon2.a
+libtool: install: chmod 644 /usr/local/lib/liborcon2.a
+libtool: install: ranlib /usr/local/lib/liborcon2.a
+libtool: finish: PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/sbin" ldconfig -n /usr/local/lib
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+install -d -m 755 /usr/local/include
+install -d -m 755 /usr/local/include/lorcon2/
+install -m 644 lorcon.h /usr/local/include/lorcon2/lorcon.h
+install -m 644 lorcon_packet.h /usr/local/include/lorcon2/lorcon_packet.h
+install -m 644 lorcon_packasm.h /usr/local/include/lorcon2/lorcon_packasm.h
+install -m 644 lorcon_forge.h /usr/local/include/lorcon2/lorcon_forge.h
+install -m 644 lorcon_multi.h /usr/local/include/lorcon2/lorcon_multi.h
+install -m 644 ieee80211.h /usr/local/include/lorcon2/lorcon_ieee80211.h
+install -d -m 755 /usr/local/share/man/man3
+install -o root -m 644 lorcon.3 /usr/local/share/man/man3/lorcon.3
+

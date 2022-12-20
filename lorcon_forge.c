@@ -156,14 +156,17 @@ void lcpf_80211headers(struct lcpa_metapack *pack, unsigned int type,
 	uint8_t chunk[2];
 	uint16_t *sixptr;
 
+	//fflq Frame Control Field
 	chunk[0] = ((type << 2) | (subtype << 4));
 	chunk[1] = (uint8_t) fcflags;
 	pack = lcpa_append_copy(pack, "80211FC", 2, chunk);
 
+	//fflq Duration/ID
 	sixptr = (uint16_t *) chunk;
 	*sixptr = lorcon_hton16((uint16_t) duration);
 	pack = lcpa_append_copy(pack, "80211DUR", 2, chunk);
 
+	//fflq mac for recver/bss, sender/src/sta, dest
 	if (mac1 != NULL)
 		pack = lcpa_append_copy(pack, "80211MAC1", 6, mac1);
 	if (mac2 != NULL)
@@ -171,6 +174,7 @@ void lcpf_80211headers(struct lcpa_metapack *pack, unsigned int type,
 	if (mac3 != NULL)
 		pack = lcpa_append_copy(pack, "80211MAC3", 6, mac3);
 	
+	//fflq Sequence Control/(Fragment number, Sequence number)
 	*sixptr = ((sequence << 4) | fragment);
 	pack = lcpa_append_copy(pack, "80211FRAGSEQ", 2, chunk);
 	

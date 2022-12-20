@@ -317,12 +317,15 @@ int mac80211_setmac_cb(lorcon_t *context, int mac_len, uint8_t *mac) {
 int mac80211_sendpacket(lorcon_t *context, lorcon_packet_t *packet) {
 	int ret;
 
-    /* Easiest to make structs and pack them here than 
-     * try to do it runtime */
+	//fflq, pre-define some comm radiotap header.
+    /* Easiest to make structs and pack them here than * try to do it runtime */
+
+	//fflq, 1. basic Radiotap Header 9B, follow (1B flags)
     typedef struct __attribute__((packed)) {
         uint16_t version;
         uint16_t length;
-        uint32_t bitmap;
+        uint32_t bitmap;	//fflq, Present flags
+
         uint8_t flags;
     } _basic_rtap_hdr;
 
@@ -334,11 +337,14 @@ int mac80211_sendpacket(lorcon_t *context, lorcon_packet_t *packet) {
     };
 
 
+	//fflq, 2. mcs Radiotap Header 12B, follow (1B flags) (3B mcs settings)
     typedef struct __attribute__((packed)) { 
         uint16_t version;
         uint16_t length;
         uint32_t bitmap;
+
         uint8_t flags;
+		//fflq, bitmap(present flags) set follow bits, so follow these data
         uint8_t mcs_known;
         uint8_t mcs_flags;
         uint8_t mcs_mcs;
@@ -422,6 +428,14 @@ int mac80211_sendpacket(lorcon_t *context, lorcon_packet_t *packet) {
 		bytes = (u_char *) packet->packet_raw;
 	}
 
+	/*
+	u_int8_t flq_rtap_hdr[] = {0x00, 0x00, 0x12, 0x00, 0x0e, 0x00, 0x08, 0x00, 
+		0x00, 0x02, 0x50, 0x14, 0x00, 0x00, 0x12, 0x10, 0x00, 0x00} ;
+	u_int8_t flq_rtap_hdr2[] = {0x00, 0x00, 0x0b, 0x00, 0x00, 0x80, 0x02, 0x00, 0, 0, 0} ; 
+	rtap_len = sizeof(flq_rtap_hdr2) ;
+	rtap_hdr = flq_rtap_hdr2 ;
+	printf("*fflq %s, flq_rtap_hdr\n", __func__) ;
+	*/
 	iov[0].iov_base = rtap_hdr;
 	iov[0].iov_len = rtap_len;
 	iov[1].iov_base = bytes;
@@ -447,7 +461,7 @@ int mac80211_ifconfig_cb(lorcon_t *context, int up) {
 	return ifconfig_ifupdown(context->vapname, context->errstr, up);
 }
 
-int drv_mac80211_init(lorcon_t *context) {
+int drv_mac80211_init(lorcon_t *context) { //fflq
 	struct mac80211_lorcon *extras = 
 		(struct mac80211_lorcon *) malloc(sizeof(struct mac80211_lorcon));
 

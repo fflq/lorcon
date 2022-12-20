@@ -1,0 +1,46 @@
+
+ifcontrol_linux.o: ifcontrol_linux.c config.h ifcontrol_linux.h lorcon.h \
+ lorcon_packet.h
+iwcontrol.o: iwcontrol.c config.h iwcontrol.h lorcon.h lorcon_packet.h
+madwifing_control.o: madwifing_control.c config.h madwifing_control.h \
+ lorcon.h lorcon_packet.h ifcontrol_linux.h
+nl80211_control.o: nl80211_control.c config.h lorcon.h lorcon_packet.h \
+ /usr/include/libnl3/netlink/genl/genl.h \
+ /usr/include/libnl3/netlink/netlink.h \
+ /usr/include/libnl3/netlink/netlink-compat.h \
+ /usr/include/libnl3/netlink/version.h \
+ /usr/include/libnl3/netlink/errno.h /usr/include/libnl3/netlink/types.h \
+ /usr/include/libnl3/netlink/handlers.h \
+ /usr/include/libnl3/netlink/netlink-kernel.h \
+ /usr/include/libnl3/netlink/socket.h \
+ /usr/include/libnl3/netlink/object.h /usr/include/libnl3/netlink/utils.h \
+ /usr/include/libnl3/netlink/list.h /usr/include/libnl3/netlink/msg.h \
+ /usr/include/libnl3/netlink/attr.h /usr/include/libnl3/netlink/addr.h \
+ /usr/include/libnl3/netlink/data.h \
+ /usr/include/libnl3/netlink/genl/family.h \
+ /usr/include/libnl3/netlink/cache.h \
+ /usr/include/libnl3/netlink/genl/ctrl.h nl80211.h nl80211_control.h \
+ wifi_ht_channels.h
+wifi_ht_channels.o: wifi_ht_channels.c wifi_ht_channels.h
+lorcon_packet.o: lorcon_packet.c config.h lorcon.h lorcon_packet.h \
+ lorcon_endian.h lorcon_packasm.h lorcon_forge.h lorcon_int.h ieee80211.h
+lorcon_packasm.o: lorcon_packasm.c config.h lorcon_packasm.h
+lorcon_forge.o: lorcon_forge.c config.h lorcon.h lorcon_packet.h \
+ lorcon_packasm.h lorcon_endian.h lorcon_forge.h ieee80211.h
+drv_mac80211.o: drv_mac80211.c config.h drv_mac80211.h lorcon.h \
+ lorcon_packet.h ifcontrol_linux.h nl80211_control.h lorcon_int.h \
+ lorcon.h lorcon_packet.h lorcon_packasm.h lorcon_endian.h
+drv_tuntap.o: drv_tuntap.c config.h drv_tuntap.h lorcon.h lorcon_packet.h \
+ ifcontrol_linux.h nl80211_control.h lorcon_int.h lorcon.h \
+ lorcon_packet.h
+drv_madwifing.o: drv_madwifing.c config.h drv_madwifing.h lorcon.h \
+ lorcon_packet.h ifcontrol_linux.h madwifing_control.h lorcon_int.h \
+ lorcon.h lorcon_packet.h
+drv_file.o: drv_file.c config.h drv_file.h lorcon.h lorcon_packet.h \
+ lorcon_int.h lorcon.h lorcon_packet.h
+sha1.o: sha1.c sha1.h
+lorcon.o: lorcon.c lorcon.h lorcon_packet.h lorcon_int.h \
+ wifi_ht_channels.h drv_mac80211.h config.h lorcon.h drv_madwifing.h \
+ drv_tuntap.h drv_file.h
+lorcon_multi.o: lorcon_multi.c lorcon.h lorcon_packet.h lorcon_int.h \
+ lorcon_multi.h lorcon_multi_int.h

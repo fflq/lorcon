@@ -3,3 +3,7 @@
 *.lo
 *.la
 .*.swp*
+
+tags
+
+
